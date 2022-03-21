@@ -1,6 +1,7 @@
 package com.alrz.workshop.services;
 
 import com.alrz.workshop.domain.User;
+import com.alrz.workshop.dto.UserDTO;
 import com.alrz.workshop.repository.UserRepository;
 import com.alrz.workshop.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,13 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = userRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
+    public User insert(User obj) {
+        return userRepository.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto) {
+        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
 }
