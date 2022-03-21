@@ -20,12 +20,7 @@ public class UserService {
     }
 
     public User findById(String id) {
-        Optional<User> userOpt = userRepository.findById(id);
-        if (!userOpt.isPresent()) {
-            throw new ObjectNotFoundException("Objeto não encontrado");
-        }
-        User user = new User(userOpt.get().getId(), userOpt.get().getName(), userOpt.get().getEmail());
-        return user;
+        Optional<User> obj = userRepository.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
-
 }
